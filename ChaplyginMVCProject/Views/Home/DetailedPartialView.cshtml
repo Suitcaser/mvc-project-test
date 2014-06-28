@@ -1,0 +1,58 @@
+﻿@model ChaplyginMVCProject.Models.DetailedInfoModel
+
+<fieldset>
+    <legend>DetailedInfoModel</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContractSubject)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContractSubject)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Signatory)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Signatory)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContactInfo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContactInfo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContractNumber)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContractNumber)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ContractDate)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ContractDate)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Sum)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Sum)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.FullName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.FullName)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

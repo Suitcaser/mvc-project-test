@@ -1,58 +1,74 @@
 ﻿@model ChaplyginMVCProject.Models.DetailedInfoModel
-
 <fieldset>
-    <legend>DetailedInfoModel</legend>
+    <legend>Подробная информация о контракте:</legend>
+    <table>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.ContractSubject)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.ContractSubject)
+            </td>
+        </tr>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContractSubject)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ContractSubject)
-    </div>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.Signatory)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.Signatory)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                 @Html.DisplayNameFor(model => model.ContactInfo)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.ContactInfo)
+            </td>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Signatory)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Signatory)
-    </div>
+        </tr>
+        <tr>
+            <td class="display-label">
+                 @Html.DisplayNameFor(model => model.ContractNumber)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.ContractNumber)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                 @Html.DisplayNameFor(model => model.ContractDate)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.ContractDate)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                 @Html.DisplayNameFor(model => model.Sum)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.Sum)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                @Html.DisplayNameFor(model => model.FullName)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.FullName)
+            </td>
+        </tr>
+        <tr>
+            <td class="display-label">
+                 @Html.DisplayNameFor(model => model.ExecutorInfo)
+            </td>
+            <td class="display-field">
+                @Html.DisplayFor(model => model.ExecutorInfo)
+            </td>
+        </tr>
 
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContactInfo)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ContactInfo)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContractNumber)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ContractNumber)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.ContractDate)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.ContractDate)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Sum)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Sum)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.FullName)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.FullName)
-    </div>
+    </table>
 </fieldset>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id=Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+

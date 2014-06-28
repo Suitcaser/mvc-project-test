@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace ChaplyginMVCProject.Models
 {
@@ -27,7 +28,8 @@ namespace ChaplyginMVCProject.Models
         [DisplayName("Номер контракта")]
         public int ContractNumber { get; set; }
         [DisplayName("Дата подписания")]
-        public DateTime ContractDate { get; set; } //Полагаем договор может быть подписан в любое (даже будущее) время
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        public DateTime ContractDate { get; set; } //Полагаем договор может быть подписан в любое (даже будущее!!) время
         private double _sum;
         [DisplayName("Итоговая сумма")]
         public double Sum
@@ -64,7 +66,7 @@ namespace ChaplyginMVCProject.Models
 
     public partial class ShortInfoModel
     {
-        public List<ShortInfoModel> ContractList { get; set; }
+        //public List<ShortInfoModel> ContractList { get; set; }
 
         public ShortInfoModel(int id, int cn, DateTime date, double sum, string name)
         {

@@ -1,53 +1,110 @@
-﻿@model ChaplyginMVCProject.Models.ShortInfoModel
+﻿@model IEnumerable<ChaplyginMVCProject.Models.ShortInfoModel>
 
 @{
     ViewBag.Title = "Index";
 }
+@if (!Model.Any())
+{
+    <div>Нет информации о контрактах.</div>
+}
+else
+{
+    <table>
+        <tr>
+            <th>
+                @Html.ActionLink(
+                Html.DisplayNameFor(x => x.Id).ToHtmlString(),
+                "Index",
+                new {Id = true}
+                ) 
+            </th>
+            <th>
+                @Html.ActionLink(
+                Html.DisplayNameFor(x => x.ContractNumber).ToHtmlString(),
+                "Index",
+                new {ContractNumber = true}
+                )                 
+            </th>
+            <th>
+                @Html.ActionLink(
+                Html.DisplayNameFor(x => x.ContractDate).ToHtmlString(),
+                "Index",
+                new {ContractDate = true}
+                )                 
+            </th>
+            <th>
+                @Html.ActionLink(
+                Html.DisplayNameFor(x => x.Sum).ToHtmlString(),
+                "Index",
+                new {Sum = true}
+                )
+            </th>
+            <th>
+                @Html.ActionLink(
+                Html.DisplayNameFor(x => x.FullName).ToHtmlString(),
+                "Index",
+                new {FullName = true}
+                )
+            </th>
+        </tr>
 
-<table>
-    <tr>
-        <th>@Html.DisplayNameFor(x => x.Id)</th>
-        <th>@Html.DisplayNameFor(x => x.ContractNumber)</th>
-        <th>@Html.DisplayNameFor(x => x.ContractDate)</th>
-        <th>@Html.DisplayNameFor(x => x.Sum)</th>
-        <th>@Html.DisplayNameFor(x => x.FullName)</th>
-    </tr>
-    @if (Model.ContractList == null)
-    {
-        <p>Нет информации о контрактах.</p>
-    }
-    else
-    {
-        foreach (var item in Model.ContractList)
+        @foreach (var item in Model)
         {
-            <tr onclick="showDetails(@item.Id)">
-                <td>@item.Id</td>
-                <td>@item.ContractNumber</td>
-                <td>@item.ContractDate</td>
-                <td>@item.Sum</td>
-                <td>@item.FullName</td>
+            <tr id="row-@item.Id">
+                <td onclick="showDetails(@item.Id,0)">@Html.DisplayFor(x => item.Id)</td>
+                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.ContractNumber)</td>
+                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.ContractDate)</td>
+                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.Sum)</td>
+                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.FullName)</td>
             </tr>
         }
-    }
+    
 
-</table>
-
+    </table>
+}
 <div id="detailesDialogWindow">
     
 </div>
 
-<script language="javascript">
-    function showDetails(id) {
-        $.ajax({
-            url: '/HOME/RequestDetails',
-            type: 'POST',
-            data: id,
-            success: function(data) {
-                var html = '';
+<script type="text/javascript" language="javascript">
 
-                $('#detailesDialogWindow').html(html);
-            }
+
+    $(function () {
+        $("#detailesDialogWindow").dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            width: 900
         });
+    });
+
+    function showDetails(id, fullRequestFlag) {
+        $('*').removeClass('contract-column-selected');
+        $('#row-' + id).children().addClass('contract-column-selected');
+
+        switch (fullRequestFlag) {
+            case 0:
+                $.ajax({
+                    url: '/HOME/RequestDetails',
+                    type: 'POST',
+                    data: { id: id, flag: fullRequestFlag },
+                    dataType: "html",
+                    success: function (data) {
+                        $('#detailesDialogWindow').html(data);
+                        $('#detailesDialogWindow').dialog('open');
+                    },
+                    error: function () {
+                        alert('Ошибка передачи данных или требуемого контракта уже нет ;(');
+                    }
+                });                
+                break;
+            case 1:
+                var url = '@Url.Action("RequestDetails", "Home", new { id = "_id", flag = 1 })';
+                window.location.href = url.replace('_id', id);
+                break;
+        }
+
+
     }
 </script>
 

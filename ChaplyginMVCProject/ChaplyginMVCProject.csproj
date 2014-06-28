@@ -241,7 +241,7 @@
     <Content Include="Views\Home\DetailedPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\ContractList.cshtml" />
+    <Content Include="Views\Home\ContactInfoPartialView.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

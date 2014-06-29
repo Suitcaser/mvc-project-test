@@ -15,7 +15,7 @@ namespace ChaplyginMVCProject.Controllers
         /// Начальная страница сайта - список всех контрактов из базы
         /// </summary>
         /// <returns></returns>
-        public ActionResult Index(ShortInfoModel.SortOptions sortOptions = null)
+        public ActionResult Index(SortOptions sortOptions = null)
         {
             return View(BuildShortView(sortOptions));
 
@@ -34,8 +34,9 @@ namespace ChaplyginMVCProject.Controllers
                 var contract = dbContext.ContractInfo.SingleOrDefault(x => x.ID == id);
                 if (contract == null)
                 {
-                    Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                    return null;
+                    Response.StatusCode = (int)HttpStatusCode.NotFound;
+                    ViewBag.ErrorText = "Такого контракта не существует!";
+                    return View("Error");
                 }
 
                 var model = new DetailedInfoModel(
@@ -70,7 +71,7 @@ namespace ChaplyginMVCProject.Controllers
         /// Подготовка модели всех договоров
         /// </summary>
         /// <returns> Модель договоров </returns>
-        private static IEnumerable<ShortInfoModel> BuildShortView(ShortInfoModel.SortOptions sortOptions = null)
+        private static IEnumerable<ShortInfoModel> BuildShortView(SortOptions sortOptions = null)
         {
             var shortInfoModel = new List<ShortInfoModel>();
             try

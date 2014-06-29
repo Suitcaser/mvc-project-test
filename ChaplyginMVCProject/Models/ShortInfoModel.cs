@@ -5,23 +5,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ChaplyginMVCProject.Models
 {
-    public partial class ShortInfoModel
+    public class ShortInfoModel
     {
-
-        public SortOptions Options { get; set; }
-
-        public class SortOptions
+        public ShortInfoModel(int id, int cn, DateTime date, double sum, string name)
         {
-            public bool? Id { get; set; }
-            public bool? ContractNumber { get; set; }
-            public bool? ContractDate { get; set; }
-            public bool? Sum { get; set; }
-            public bool? FullName { get; set; }
+            Id = id;
+            ContractNumber = cn;
+            ContractDate = date;
+            Sum = sum;
+            FullName = name;
         }
-
-
-
-        public ShortInfoModel(){}
 
         [DisplayName("ID")]
         public int Id { get; set; }
@@ -63,19 +56,4 @@ namespace ChaplyginMVCProject.Models
             }
         }
     }
-
-    public partial class ShortInfoModel
-    {
-        //public List<ShortInfoModel> ContractList { get; set; }
-
-        public ShortInfoModel(int id, int cn, DateTime date, double sum, string name)
-        {
-            Id = id;
-            ContractNumber = cn;
-            ContractDate = date;
-            Sum = sum;
-            FullName = name;
-        }
-    }
-
 }

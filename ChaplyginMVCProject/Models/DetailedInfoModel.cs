@@ -8,10 +8,6 @@ namespace ChaplyginMVCProject.Models
 {
     public class DetailedInfoModel : ShortInfoModel
     {
-        public DetailedInfoModel()
-        {
-        }
-
         public DetailedInfoModel(int id, int cn, DateTime date, double sum, string name, string cs, string sig, string ci, string ei) : base(id, cn, date, sum, name)
         {
             ContractSubject = cs;
@@ -49,7 +45,7 @@ namespace ChaplyginMVCProject.Models
                     throw new ArgumentException("Подписант не может быть пустой строкой или состоять только из пробелов.");
             }
         }
-        [DisplayName("Подписант")]
+        [DisplayName("Информация об исполнителе")]
         public string ExecutorInfo { get; set; }
         [DisplayName("Контактные данные представителя")]
         public string ContactInfo { get; set; }

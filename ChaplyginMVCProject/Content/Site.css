@@ -64,13 +64,6 @@ tr {
     text-align: right;
 }
 
-th 
-{
-    display: block;
-    margin-left: 100px;
-    float: left;
-}
-
 .display-label { width: 400px; text-align: left }
 
 .display-field { width: 800px; text-align: left}

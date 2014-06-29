@@ -99,7 +99,7 @@ else
                 });                
                 break;
             case 1:
-                var url = '@Url.Action("RequestDetails", "Home", new { id = "_id", flag = 1 })';
+                var url = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/ })';
                 window.location.href = url.replace('_id', id);
                 break;
         }

@@ -135,6 +135,7 @@
     </Compile>
     <Compile Include="Models\DetailedInfoModel.cs" />
     <Compile Include="Models\ShortInfoModel.cs" />
+    <Compile Include="Models\SortOptions.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

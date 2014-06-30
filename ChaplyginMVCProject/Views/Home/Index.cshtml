@@ -102,6 +102,10 @@ else
                 var url = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/ })';
                 window.location.href = url.replace('_id', id);
                 break;
+            default:
+                var urldefault = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/ })';
+                window.location.href = urldefault.replace('_id', id);
+                break;
         }
 
 

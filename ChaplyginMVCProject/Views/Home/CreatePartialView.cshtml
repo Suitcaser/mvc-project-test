@@ -1,12 +1,9 @@
 ﻿@model ChaplyginMVCProject.Models.DetailedInfoModel
 
+@*Валидация сделана через декларативный хелпер ajax-jquery, проверка реализована на клиенте (без обращений к серверу после изначальной загрузки), параметры валидации - в аттрибутах класса.*@
 
 
-    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
-
-@using (Ajax.BeginForm("CreateContract", "Home", FormMethod.Post, new AjaxOptions{ UpdateTargetId = "result", OnSuccess = "showSuccessMessage"}))
+@using (Ajax.BeginForm("CreateContract", "Home", FormMethod.Post, new AjaxOptions { UpdateTargetId = "createContractDialogWindow", OnSuccess = "onSuccess", OnFailure = "onError" }, new { @id = "frmID" }))
 {
     @Html.ValidationSummary(true)
 
@@ -58,7 +55,7 @@
             @Html.LabelFor(model => model.ContractDate)
         </div>
         <div class="editor-field">
-            @Html.TextBoxFor(model => model.ContractDate, new { @class = "datepicker"})
+            @Html.TextBoxFor(model => model.ContractDate, new { @id = "datepicker"})
             @Html.ValidationMessageFor(model => model.ContractDate)
         </div>
 
@@ -86,16 +83,23 @@
 
 <script type="text/javascript">
     $(function() {
-        $('.datepicker').datepicker({
+        $('#datepicker').datepicker({
             changeMonth: true,
             changeYear: true,
             minDate: "-5Y",
             maxDate: "+10Y",
-            //dateFormat: "dd/mm/yy"
+            dateFormat: "dd/mm/yy"
         });
     });
 
-    function showSuccessMessage() {
-        $('.editor-field').children().val(''); 
+    var onSuccess = function() {
+        $('div#createContractDialogWindow').bind('dialogclose', function (event) {
+            window.location.reload();
+        });
+        $('.editor-field').children().val('');
+    }
+
+    var onError = function() {
+        alert("Внутренняя ошибка создания контракта.");
     }
 </script>

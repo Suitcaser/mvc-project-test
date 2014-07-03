@@ -1,5 +1,5 @@
 ﻿@using ChaplyginMVCProject.Models
-@model IEnumerable<ChaplyginMVCProject.Models.ShortInfoModel>
+@model IEnumerable<ShortInfoModel>
 
 @{
     ViewBag.Title = "Index";
@@ -7,44 +7,46 @@
 @if (!Model.Any())
 {
     <div>Нет информации о контрактах.</div>
+    <button onclick="callCreateContract()" >Let's create contract!</button>
 }
 else
 {
+    <button onclick="callCreateContract()" >Let's create contract!</button>
     <table>
         <tr>
             <th>
                 @Html.ActionLink(
                     Html.DisplayNameFor(x => x.Id).ToHtmlString(),
                     "Index",
-                    new {Id = true}
+                    new { Id = true }
                     ) 
             </th>
             <th>
                 @Html.ActionLink(
                     Html.DisplayNameFor(x => x.ContractNumber).ToHtmlString(),
                     "Index",
-                    new {ContractNumber = true}
+                    new { ContractNumber = true }
                     )                 
             </th>
             <th>
                 @Html.ActionLink(
                     Html.DisplayNameFor(x => x.ContractDate).ToHtmlString(),
                     "Index",
-                    new {ContractDate = true}
+                    new { ContractDate = true }
                     )                 
             </th>
             <th>
                 @Html.ActionLink(
                     Html.DisplayNameFor(x => x.Sum).ToHtmlString(),
                     "Index",
-                    new {Sum = true}
+                    new { Sum = true }
                     )
             </th>
             <th>
                 @Html.ActionLink(
                     Html.DisplayNameFor(x => x.FullName).ToHtmlString(),
                     "Index",
-                    new {FullName = true}
+                    new { FullName = true }
                     )
             </th>
         </tr>
@@ -52,11 +54,11 @@ else
         @foreach (var item in Model)
         {
             <tr id="row-@item.Id">
-                <td onclick="showDetails(@item.Id,0)">@Html.DisplayFor(x => item.Id)</td>
-                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.ContractNumber)</td>
-                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.ContractDate)</td>
-                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.Sum)</td>
-                <td onclick="showDetails(@item.Id,1)">@Html.DisplayFor(x => item.FullName)</td>
+                <td class="ID">@Html.DisplayFor(x => item.Id)</td>
+                <td >@Html.DisplayFor(x => item.ContractNumber)</td>
+                <td >@Html.DisplayFor(x => item.ContractDate)</td>
+                <td >@Html.DisplayFor(x => item.Sum)</td>
+                <td class="fullname">@Html.DisplayFor(x => item.FullName)</td>
             </tr>
         }
     
@@ -81,26 +83,35 @@ else
             autoOpen: false,
             width: 900
         });
-    });
 
-    $(function () {
         $("#createContractDialogWindow").dialog({
             resizable: false,
             modal: true,
             autoOpen: false,
             width: 1100
         });
-        $('.editor-field').children().val(''); //Чистим поля для нового ввода
+
+        $('.editor-field').children().val('');
+
+        $('.fullname').click(function (e) {
+            e.stopPropagation();
+            $('.fullname').removeClass('contract-column-selected');
+            $(this).addClass('contract-column-selected');
+            showDetails($(this).parent().children('.ID').html(), 0);
+        });
+
+        $('tr').click(function(e) {
+            showDetails($(this).children('.ID').html(), 1);
+        });
     });
+
 
     function callCreateContract() {
         $('#createContractDialogWindow').dialog('open');
     }
 
     function showDetails(id, fullRequestFlag) {
-        $('*').removeClass('contract-column-selected');
-        $('#row-' + id).children().addClass('contract-column-selected');
-
+        //e.stopPropagation();
         switch (fullRequestFlag) {
         case 0:
             $.ajax({
@@ -118,13 +129,13 @@ else
             });
             break;
         case 1:
-            var url = '@Url.Action("RequestDetails", "Home", new {id = "_id" /*, flag = 1*/})';
+            var url = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/})';
             window.location.href = url.replace('_id', id);
             break;
         default:
             var urldefault = '@Url.Action("RequestDetails", "Home", new {id = "_id" /*, flag = 1*/})';
-                window.location.href = urldefault.replace('_id', id);
-                break;
+            window.location.href = urldefault.replace('_id', id);
+            break;
         }
 
 

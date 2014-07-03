@@ -9,12 +9,13 @@
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryui")
     @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jqueryval")
 
 </head>
-<body>
-    @RenderBody()
+    <body>
+        @RenderBody()
 
-    
-    @RenderSection("scripts", required: false)
-</body>
+        
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

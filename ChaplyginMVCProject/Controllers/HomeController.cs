@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
 using ChaplyginMVCProject.Models;
 
@@ -54,13 +53,10 @@ namespace ChaplyginMVCProject.Controllers
                 {
                     case 0:
                         return PartialView("ContactInfoPartialView", model);
-                        break;
                     case 1:
                         return View("DetailedPartialView", model);
-                        break;
                     default: 
                         return View("DetailedPartialView", model);
-                        break;
                 }
                 
 
@@ -78,9 +74,13 @@ namespace ChaplyginMVCProject.Controllers
         }
 
         [HttpPost]
-        public JsonResult CreateContract(DetailedInfoModel model)
+        public ActionResult CreateContract(DetailedInfoModel model)
         {
             if (model == null) throw new ArgumentNullException("model");
+            //if (!ModelState.IsValid)
+            //{
+            //    return PartialView("CreatePartialView");
+            //}
             using (var dbContext = new ContractEntities())
             {
                 dbContext.ContractInfo.AddObject(new ContractInfo
@@ -96,7 +96,7 @@ namespace ChaplyginMVCProject.Controllers
                 });
                 dbContext.SaveChanges();
             }
-            return Json("Contract has been added successfully!", "text/html");
+            return Content("Контракт создан!", "text/html");
         }
 
         /// <summary>
@@ -122,7 +122,8 @@ namespace ChaplyginMVCProject.Controllers
                     else contractInfos = contractInfos.OrderBy(x => x.ID);
                     #endregion
                     // Для простоты считаем, что можно без проблем выгрузить сразу все строки, иначе брали бы пачками (показывали по 20 на странице например)
-                    foreach (var item in contractInfos)
+// ReSharper disable once LoopCanBeConvertedToQuery
+                    foreach (var item in contractInfos) 
                     {
                         shortInfoModel.Add(
                             new ShortInfoModel(

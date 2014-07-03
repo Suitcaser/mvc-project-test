@@ -1,4 +1,5 @@
-﻿@model IEnumerable<ChaplyginMVCProject.Models.ShortInfoModel>
+﻿@using ChaplyginMVCProject.Models
+@model IEnumerable<ChaplyginMVCProject.Models.ShortInfoModel>
 
 @{
     ViewBag.Title = "Index";
@@ -13,38 +14,38 @@ else
         <tr>
             <th>
                 @Html.ActionLink(
-                Html.DisplayNameFor(x => x.Id).ToHtmlString(),
-                "Index",
-                new {Id = true}
-                ) 
+                    Html.DisplayNameFor(x => x.Id).ToHtmlString(),
+                    "Index",
+                    new {Id = true}
+                    ) 
             </th>
             <th>
                 @Html.ActionLink(
-                Html.DisplayNameFor(x => x.ContractNumber).ToHtmlString(),
-                "Index",
-                new {ContractNumber = true}
-                )                 
+                    Html.DisplayNameFor(x => x.ContractNumber).ToHtmlString(),
+                    "Index",
+                    new {ContractNumber = true}
+                    )                 
             </th>
             <th>
                 @Html.ActionLink(
-                Html.DisplayNameFor(x => x.ContractDate).ToHtmlString(),
-                "Index",
-                new {ContractDate = true}
-                )                 
+                    Html.DisplayNameFor(x => x.ContractDate).ToHtmlString(),
+                    "Index",
+                    new {ContractDate = true}
+                    )                 
             </th>
             <th>
                 @Html.ActionLink(
-                Html.DisplayNameFor(x => x.Sum).ToHtmlString(),
-                "Index",
-                new {Sum = true}
-                )
+                    Html.DisplayNameFor(x => x.Sum).ToHtmlString(),
+                    "Index",
+                    new {Sum = true}
+                    )
             </th>
             <th>
                 @Html.ActionLink(
-                Html.DisplayNameFor(x => x.FullName).ToHtmlString(),
-                "Index",
-                new {FullName = true}
-                )
+                    Html.DisplayNameFor(x => x.FullName).ToHtmlString(),
+                    "Index",
+                    new {FullName = true}
+                    )
             </th>
         </tr>
 
@@ -61,15 +62,19 @@ else
     
 
     </table>
+    <button onclick="callCreateContract()" >Let's create contract!</button>
 }
 <div id="detailesDialogWindow">
     
+</div>
+<div id="createContractDialogWindow">
+    @{ Html.RenderPartial("CreatePartialView", new DetailedInfoModel()); }   
 </div>
 
 <script type="text/javascript" language="javascript">
 
 
-    $(function () {
+    $(function() {
         $("#detailesDialogWindow").dialog({
             resizable: false,
             modal: true,
@@ -78,32 +83,46 @@ else
         });
     });
 
+    $(function () {
+        $("#createContractDialogWindow").dialog({
+            resizable: false,
+            modal: true,
+            autoOpen: false,
+            width: 1100
+        });
+        $('.editor-field').children().val(''); //Чистим поля для нового ввода
+    });
+
+    function callCreateContract() {
+        $('#createContractDialogWindow').dialog('open');
+    }
+
     function showDetails(id, fullRequestFlag) {
         $('*').removeClass('contract-column-selected');
         $('#row-' + id).children().addClass('contract-column-selected');
 
         switch (fullRequestFlag) {
-            case 0:
-                $.ajax({
-                    url: '/HOME/RequestDetails',
-                    type: 'POST',
-                    data: { id: id, flag: fullRequestFlag },
-                    dataType: "html",
-                    success: function (data) {
-                        $('#detailesDialogWindow').html(data);
-                        $('#detailesDialogWindow').dialog('open');
-                    },
-                    error: function () {
-                        alert('Ошибка передачи данных или требуемого контракта уже нет ;(');
-                    }
-                });                
-                break;
-            case 1:
-                var url = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/ })';
-                window.location.href = url.replace('_id', id);
-                break;
-            default:
-                var urldefault = '@Url.Action("RequestDetails", "Home", new { id = "_id" /*, flag = 1*/ })';
+        case 0:
+            $.ajax({
+                url: '/HOME/RequestDetails',
+                type: 'POST',
+                data: { id: id, flag: fullRequestFlag },
+                dataType: "html",
+                success: function(data) {
+                    $('#detailesDialogWindow').html(data);
+                    $('#detailesDialogWindow').dialog('open');
+                },
+                error: function() {
+                    alert('Ошибка передачи данных или требуемого контракта уже нет ;(');
+                }
+            });
+            break;
+        case 1:
+            var url = '@Url.Action("RequestDetails", "Home", new {id = "_id" /*, flag = 1*/})';
+            window.location.href = url.replace('_id', id);
+            break;
+        default:
+            var urldefault = '@Url.Action("RequestDetails", "Home", new {id = "_id" /*, flag = 1*/})';
                 window.location.href = urldefault.replace('_id', id);
                 break;
         }

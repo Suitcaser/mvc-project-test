@@ -1,0 +1,99 @@
+﻿@model ChaplyginMVCProject.Models.DetailedInfoModel
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Ajax.BeginForm("CreateContract", "Home", FormMethod.Post, new AjaxOptions { UpdateTargetId = "result", OnComplete = "safeRedirect()" }))
+{
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <div id="result"></div>
+        <legend>Создание контракта</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContractSubject)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ContractSubject)
+            @Html.ValidationMessageFor(model => model.ContractSubject)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Signatory)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Signatory)
+            @Html.ValidationMessageFor(model => model.Signatory)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ExecutorInfo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ExecutorInfo)
+            @Html.ValidationMessageFor(model => model.ExecutorInfo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContactInfo)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ContactInfo)
+            @Html.ValidationMessageFor(model => model.ContactInfo)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContractNumber)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ContractNumber)
+            @Html.ValidationMessageFor(model => model.ContractNumber)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ContractDate)
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.ContractDate, new { @class = "datepicker"})
+            @Html.ValidationMessageFor(model => model.ContractDate)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Sum)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Sum)
+            @Html.ValidationMessageFor(model => model.Sum)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.FullName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.FullName)
+            @Html.ValidationMessageFor(model => model.FullName)
+        </div>
+
+        <p>
+            <input type="submit" value="Создать" />
+        </p>
+    </fieldset>
+}
+
+<script type="text/javascript">
+    $(function() {
+        $('.datepicker').datepicker({
+            changeMonth: true,
+            changeYear: true,
+            minDate: "-5Y",
+            maxDate: "+10Y",
+            //dateFormat: "dd/mm/yy"
+        });
+    });
+
+    function safeRedirect() {
+        $('.editor-field').children().val(''); 
+        alert('New contract has been successfully created!');
+    }
+</script>

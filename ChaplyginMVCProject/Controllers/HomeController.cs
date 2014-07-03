@@ -68,6 +68,38 @@ namespace ChaplyginMVCProject.Controllers
         }
 
         /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        [HttpPost]
+        public ActionResult CallCreateContract()
+        {
+            return PartialView("CreatePartialView");
+        }
+
+        [HttpPost]
+        public JsonResult CreateContract(DetailedInfoModel model)
+        {
+            if (model == null) throw new ArgumentNullException("model");
+            using (var dbContext = new ContractEntities())
+            {
+                dbContext.ContractInfo.AddObject(new ContractInfo
+                {
+                    FullName = model.FullName,
+                    ContractDate = model.ContractDate,
+                    ContractNumber = model.ContractNumber,
+                    ExecutorInfo = model.ExecutorInfo,
+                    Sum = model.Sum,
+                    ContractSubject = model.ContractSubject,
+                    ContactInfo = model.ContactInfo,
+                    Sygnatory = model.Signatory
+                });
+                dbContext.SaveChanges();
+            }
+            return Json("Contract has been added successfully!", "text/html");
+        }
+
+        /// <summary>
         /// Подготовка модели всех договоров
         /// </summary>
         /// <returns> Модель договоров </returns>

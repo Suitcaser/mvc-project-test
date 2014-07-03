@@ -15,15 +15,19 @@ namespace ChaplyginMVCProject.Models
             Sum = sum;
             FullName = name;
         }
-
+        [Key]
         [DisplayName("ID")]
         public int Id { get; set; }
+        [Required]
+        [Range(0,999999)]
         [DisplayName("Номер контракта")]
         public int ContractNumber { get; set; }
+        [Required]
         [DisplayName("Дата подписания")]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}")]
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime ContractDate { get; set; } //Полагаем договор может быть подписан в любое (даже будущее!!) время
         private double _sum;
+        [Required]
         [DisplayName("Итоговая сумма")]
         public double Sum
         {
@@ -40,6 +44,13 @@ namespace ChaplyginMVCProject.Models
             }
         }
         private string _fullName;
+
+        protected ShortInfoModel()
+        {
+        }
+
+        [Required]
+        [StringLength(50)]
         [DisplayName("ФИО исполнителя")]
         public string FullName
         {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -8,6 +9,10 @@ namespace ChaplyginMVCProject.Models
 {
     public class DetailedInfoModel : ShortInfoModel
     {
+        public DetailedInfoModel()
+        {
+        }
+
         public DetailedInfoModel(int id, int cn, DateTime date, double sum, string name, string cs, string sig, string ci, string ei) : base(id, cn, date, sum, name)
         {
             ContractSubject = cs;
@@ -17,6 +22,8 @@ namespace ChaplyginMVCProject.Models
         }
 
         private string _contractSubject;
+        [Required]
+        [StringLength(50)]
         [DisplayName("Предмет договора")]
         public string ContractSubject
         {
@@ -30,6 +37,8 @@ namespace ChaplyginMVCProject.Models
             }
         }
         private string _signatory;
+        [Required]
+        [StringLength(50)]
         [DisplayName("Подписант")]
         public string Signatory
         {
@@ -45,8 +54,12 @@ namespace ChaplyginMVCProject.Models
                     throw new ArgumentException("Подписант не может быть пустой строкой или состоять только из пробелов.");
             }
         }
+        [Required]
+        [StringLength(150)]
         [DisplayName("Информация об исполнителе")]
         public string ExecutorInfo { get; set; }
+        [Required]
+        [StringLength(150)]
         [DisplayName("Контактные данные представителя")]
         public string ContactInfo { get; set; }
     }

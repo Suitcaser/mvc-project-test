@@ -1,9 +1,12 @@
 ﻿@model ChaplyginMVCProject.Models.DetailedInfoModel
 
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
 
-@using (Ajax.BeginForm("CreateContract", "Home", FormMethod.Post, new AjaxOptions { UpdateTargetId = "result", OnComplete = "safeRedirect()" }))
+
+    <script type="text/javascript" src="~/Scripts/jquery.validate.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+    <script type="text/javascript" src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Ajax.BeginForm("CreateContract", "Home", FormMethod.Post, new AjaxOptions{ UpdateTargetId = "result", OnSuccess = "showSuccessMessage"}))
 {
     @Html.ValidationSummary(true)
 
@@ -92,8 +95,7 @@
         });
     });
 
-    function safeRedirect() {
+    function showSuccessMessage() {
         $('.editor-field').children().val(''); 
-        alert('New contract has been successfully created!');
     }
 </script>
